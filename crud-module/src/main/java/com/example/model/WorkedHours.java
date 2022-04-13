@@ -6,24 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
 @Builder
-@Table(name = "workers")
-public class Worker {
+@Table(name = "worked_hours")
+public class WorkedHours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String firstName;
-    private String lastName;
+    private LocalDateTime startDate;
 
-    @ManyToOne()
-    @JoinColumn(name = "department_id")
-    private Department department;
+    private LocalDateTime endDate;
 
+    @OneToOne()
+    @JoinColumn(name = "worker_id")
+    private Worker worker;
 }
