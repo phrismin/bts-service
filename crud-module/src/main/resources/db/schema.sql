@@ -7,10 +7,10 @@ CREATE TABLE departments
 CREATE TABLE workers
 (
     id            BIGINT AUTO_INCREMENT PRIMARY KEY,
-    first_name    VARCHAR(128) UNIQUE NOT NULL,
-    last_name     VARCHAR(128) UNIQUE NOT NULL,
+    first_name    VARCHAR(128) NOT NULL,
+    last_name     VARCHAR(128) NOT NULL,
     department_id BIGINT,
-    FOREIGN KEY (department_id) references departments (id)
+    FOREIGN KEY (department_id) REFERENCES departments(id)
 );
 
 CREATE TABLE worked_hours
@@ -19,5 +19,5 @@ CREATE TABLE worked_hours
     start_date TIMESTAMP NOT NULL,
     end_date   TIMESTAMP,
     worker_id  BIGINT,
-    FOREIGN KEY (worker_id) references workers (id)
+    FOREIGN KEY (worker_id) REFERENCES workers(id) ON DELETE CASCADE
 )

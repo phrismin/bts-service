@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -25,5 +26,9 @@ public class Worker {
     @ManyToOne()
     @JoinColumn(name = "department_id")
     private Department department;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "workerHours_id")
+    private List<WorkedHours> workedHours;
 
 }
