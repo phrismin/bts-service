@@ -27,6 +27,5 @@ public class WorkedHours {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worker_id")
-    @JsonManagedReference
     private Worker worker;
 }

@@ -27,7 +27,6 @@ public class Worker {
 
     @ManyToOne()
     @JoinColumn(name = "department_id")
-    @JsonManagedReference
     private Department department;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "worker")
