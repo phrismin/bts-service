@@ -1,38 +1,19 @@
 package com.example.service;
 
 import com.example.model.Worker;
-import com.example.repository.WorkerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class WorkerService {
+public interface WorkerService {
 
-    private final WorkerRepository workerRepository;
+    Worker getById(Long id);
 
-    @Autowired
-    public WorkerService (WorkerRepository workerRepository) {
-        this.workerRepository = workerRepository;
-    }
+    Worker add(Worker worker);
 
-    public Worker getById(Long id) {
-       return workerRepository.findById(id)
-                .orElseThrow(() ->
-                        new IllegalArgumentException("User with this id isn't exist: " + id));
-    }
+    void deleteByID(Long id);
 
-    public Worker add(Worker worker) {
-        return workerRepository.save(worker);
-    }
+    List<Worker> getAll();
 
-    public Worker deleteByID(Long id) {
-        workerRepository.delete(getById(id));
-        return null;
-    }
-
-    public List<Worker> getAll() {
-        return (List<Worker>) workerRepository.findAll();
-    }
 }

@@ -8,13 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-//        .../departments - POST, GET
-//        .../departments/{id} - GET, DELETE
-//        .../worked_hours - POST, GET
-//        .../worked_hours/{workerId} - GET, DELETE
 
 @RestController
 @RequestMapping("/workers")
+
 public class WorkerController {
 
     private final WorkerService workerService;
@@ -26,21 +23,25 @@ public class WorkerController {
 
     @GetMapping
     public ResponseEntity<List<Worker>> getAll() {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        List<Worker> workers = workerService.getAll();
+        return new ResponseEntity<>(workers, HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<Worker> save(@RequestBody Worker worker) {
-        return new ResponseEntity<>(null, HttpStatus.CREATED);
+        Worker addWorker = workerService.add(worker);
+        return new ResponseEntity<>(addWorker, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "{id}")
     public ResponseEntity<Worker> getByID(@PathVariable Long id) {
-        return new ResponseEntity<>(null, HttpStatus.OK);
+        Worker worker = workerService.getById(id);
+        return new ResponseEntity<>(worker, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<Worker> deleteById(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
+        workerService.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
