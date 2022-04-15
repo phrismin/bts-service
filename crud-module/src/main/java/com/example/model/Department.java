@@ -23,8 +23,9 @@ public class Department {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "worker_id")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "department")
     private List<Worker> worker;
 
 }

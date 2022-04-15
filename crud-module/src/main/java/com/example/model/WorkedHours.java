@@ -24,7 +24,7 @@ public class WorkedHours {
 
     private LocalDateTime endDate;
 
-    @OneToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "worker_id")
     private Worker worker;
 }

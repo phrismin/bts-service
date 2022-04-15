@@ -27,8 +27,7 @@ public class Worker {
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "workerHours_id")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "worker")
     private List<WorkedHours> workedHours;
 
 }
