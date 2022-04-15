@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,9 +27,10 @@ public class Worker {
 
     @ManyToOne()
     @JoinColumn(name = "department_id")
+    @JsonManagedReference
     private Department department;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "worker")
+    @JsonBackReference
     private List<WorkedHours> workedHours;
-
 }
