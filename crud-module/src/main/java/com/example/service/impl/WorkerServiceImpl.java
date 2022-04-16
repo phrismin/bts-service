@@ -3,7 +3,7 @@ package com.example.service.impl;
 import com.example.model.Worker;
 import com.example.repository.WorkerRepository;
 import com.example.service.WorkerService;
-import com.example.service.exception.WorkerServiceException;
+import com.example.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     public Worker getById(Long id) {
         return workerRepository.findById(id)
-                .orElseThrow(() -> new WorkerServiceException(
+                .orElseThrow(() -> new ServiceException(
                         String.format("Worker with this id isn't exist: %d", id)
                 ));
     }
@@ -37,7 +37,7 @@ public class WorkerServiceImpl implements WorkerService {
     public List<Worker> getAll() {
         List<Worker> workers = (List<Worker>) workerRepository.findAll();
         if (workers.isEmpty()) {
-            throw new WorkerServiceException("List is empty");
+            throw new ServiceException("List is empty");
         }
         return workers;
     }

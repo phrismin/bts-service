@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class WorkerErrorResponse {
+public class ResponseRestController {
     private int status;
     private String message;
     private long timeStamp;

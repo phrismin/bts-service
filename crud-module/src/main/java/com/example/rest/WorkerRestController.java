@@ -11,13 +11,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/workers")
-
-public class WorkerController {
+public class WorkerRestController {
 
     private final WorkerService workerService;
 
     @Autowired
-    public WorkerController(WorkerService workerService) {
+    public WorkerRestController(WorkerService workerService) {
         this.workerService = workerService;
     }
 
@@ -40,7 +39,7 @@ public class WorkerController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Long id) {
+    public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
         workerService.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
