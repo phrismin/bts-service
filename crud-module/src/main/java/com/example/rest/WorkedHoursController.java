@@ -1,5 +1,6 @@
 package com.example.rest;
 
+import com.example.dto.WorkedHoursDto;
 import com.example.model.WorkedHoursEntity;
 import com.example.service.WorkedHoursService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,21 +22,29 @@ public class WorkedHoursController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WorkedHoursEntity>> getAll() {
+    public ResponseEntity<List<WorkedHoursDto>> getAll() {
         List<WorkedHoursEntity> workedHourEntities = workedHoursService.getAll();
-        return new ResponseEntity<>(workedHourEntities, HttpStatus.OK);
+        List<WorkedHoursDto> workedHoursDtos = workedHourEntities.stream()
+                .map(this::getWorkedHoursDto).toList();
+
+        return new ResponseEntity<>(workedHoursDtos, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<WorkedHoursEntity> save(@RequestBody WorkedHoursEntity workedHoursEntity) {
+    public ResponseEntity<WorkedHoursDto> save(@RequestBody WorkedHoursDto dto) {
+        WorkedHoursEntity workedHoursEntity = getWorkedHoursEntity(dto);
         WorkedHoursEntity addWorkedHoursEntity = workedHoursService.add(workedHoursEntity);
-        return new ResponseEntity<>(addWorkedHoursEntity, HttpStatus.CREATED);
+        WorkedHoursDto workedHoursDto = getWorkedHoursDto(addWorkedHoursEntity);
+
+        return new ResponseEntity<>(workedHoursDto, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "{workerId}")
-    public ResponseEntity<WorkedHoursEntity> getByID(@PathVariable Long workerId) {
+    public ResponseEntity<WorkedHoursDto> getByID(@PathVariable Long workerId) {
         WorkedHoursEntity workedHoursEntity = workedHoursService.getById(workerId);
-        return new ResponseEntity<>(workedHoursEntity, HttpStatus.OK);
+        WorkedHoursDto workedHoursDto = getWorkedHoursDto(workedHoursEntity);
+
+        return new ResponseEntity<>(workedHoursDto, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{workerId}")
@@ -44,4 +53,21 @@ public class WorkedHoursController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    public WorkedHoursEntity getWorkedHoursEntity(WorkedHoursDto dto) {
+        WorkedHoursEntity workedHoursEntity = new WorkedHoursEntity();
+        workedHoursEntity.setId(dto.getId());
+        workedHoursEntity.setStartDate(dto.getStartDate());
+        workedHoursEntity.setEndDate(dto.getEndDate());
+        workedHoursEntity.setWorkerId(dto.getWorkerId());
+        return workedHoursEntity;
+    }
+
+    public WorkedHoursDto getWorkedHoursDto(WorkedHoursEntity entity) {
+        WorkedHoursDto workedHoursDto = new WorkedHoursDto();
+        workedHoursDto.setId(entity.getId());
+        workedHoursDto.setStartDate(entity.getStartDate());
+        workedHoursDto.setEndDate(entity.getEndDate());
+        workedHoursDto.setWorkerId(entity.getWorkerId());
+        return workedHoursDto;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.rest;
 
+import com.example.dto.DepartmentDto;
 import com.example.model.DepartmentEntity;
 import com.example.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +22,49 @@ public class DepartmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<DepartmentEntity>> getAll() {
+    public ResponseEntity<List<DepartmentDto>> getAll() {
         List<DepartmentEntity> departmentEntities = departmentService.getAll();
-        return new ResponseEntity<>(departmentEntities, HttpStatus.OK);
+        List<DepartmentDto> departmentDtos = departmentEntities.stream()
+                .map(this::getDepartmentDto).toList();
+
+        return new ResponseEntity<>(departmentDtos, HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<DepartmentEntity> save(@RequestBody DepartmentEntity departmentEntity) {
-        DepartmentEntity addWorker = departmentService.add(departmentEntity);
-        return new ResponseEntity<>(addWorker, HttpStatus.CREATED);
+    public ResponseEntity<DepartmentDto> save(@RequestBody DepartmentDto dto) {
+
+        DepartmentEntity departmentEntity = getDepartmentEntity(dto);
+        DepartmentEntity department = departmentService.add(departmentEntity);
+        DepartmentDto departmentDto = getDepartmentDto(department);
+
+        return new ResponseEntity<>(departmentDto, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "{id}")
-    public ResponseEntity<DepartmentEntity> getByID(@PathVariable Long id) {
+    public ResponseEntity<DepartmentDto> getByID(@PathVariable Long id) {
         DepartmentEntity departmentEntity = departmentService.getById(id);
-        return new ResponseEntity<>(departmentEntity, HttpStatus.OK);
+        DepartmentDto departmentDto = getDepartmentDto(departmentEntity);
+
+        return new ResponseEntity<>(departmentDto, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable Long id) {
         departmentService.deleteByID(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    private DepartmentEntity getDepartmentEntity(DepartmentDto dto) {
+        DepartmentEntity departmentEntity = new DepartmentEntity();
+        departmentEntity.setId(dto.getId());
+        departmentEntity.setName(dto.getName());
+        return departmentEntity;
+    }
+
+    private DepartmentDto getDepartmentDto(DepartmentEntity entity) {
+        DepartmentDto departmentDto = new DepartmentDto();
+        departmentDto.setId(entity.getId());
+        departmentDto.setName(entity.getName());
+        return departmentDto;
     }
 }
