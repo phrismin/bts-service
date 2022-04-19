@@ -1,6 +1,6 @@
 package com.example.service.impl;
 
-import com.example.model.Department;
+import com.example.model.DepartmentEntity;
 import com.example.repository.DepartmentRepository;
 import com.example.service.DepartmentService;
 import com.example.service.exception.ServiceException;
@@ -20,7 +20,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department getById(Long id) {
+    public DepartmentEntity getById(Long id) {
         return departmentRepository.findById(id)
                 .orElseThrow(() -> new ServiceException(
                         String.format("Department with this id isn't exist: %d", id)
@@ -28,8 +28,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department add(Department department) {
-        return departmentRepository.save(department);
+    public DepartmentEntity add(DepartmentEntity departmentEntity) {
+        return departmentRepository.save(departmentEntity);
     }
 
     @Override
@@ -38,11 +38,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public List<Department> getAll() {
-        List<Department> departments = (List<Department>) departmentRepository.findAll();
-        if (departments.isEmpty()) {
+    public List<DepartmentEntity> getAll() {
+        List<DepartmentEntity> departmentEntities = (List<DepartmentEntity>) departmentRepository.findAll();
+        if (departmentEntities.isEmpty()) {
             throw new ServiceException("List is empty");
         }
-        return departments;
+        return departmentEntities;
     }
 }

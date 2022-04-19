@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.model.Worker;
+import com.example.model.WorkerEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.List;
 @Service
 public interface WorkerService {
 
-    Worker getById(Long id);
+    WorkerEntity getById(Long id);
 
-    Worker add(Worker worker);
+    WorkerEntity add(WorkerEntity workerEntity);
 
     void deleteByID(Long id);
 
-    List<Worker> getAll();
+    List<WorkerEntity> getAll();
 
 }

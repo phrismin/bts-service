@@ -1,6 +1,6 @@
 package com.example.service.impl;
 
-import com.example.model.Worker;
+import com.example.model.WorkerEntity;
 import com.example.repository.WorkerRepository;
 import com.example.service.WorkerService;
 import com.example.service.exception.ServiceException;
@@ -19,26 +19,26 @@ public class WorkerServiceImpl implements WorkerService {
         this.workerRepository = workerRepository;
     }
 
-    public Worker getById(Long id) {
+    public WorkerEntity getById(Long id) {
         return workerRepository.findById(id)
                 .orElseThrow(() -> new ServiceException(
-                        String.format("Worker with this id isn't exist: %d", id)
+                        String.format("WorkerEntity with this id isn't exist: %d", id)
                 ));
     }
 
-    public Worker add(Worker worker) {
-        return workerRepository.save(worker);
+    public WorkerEntity add(WorkerEntity workerEntity) {
+        return workerRepository.save(workerEntity);
     }
 
     public void deleteByID(Long id) {
         workerRepository.delete(getById(id));
     }
 
-    public List<Worker> getAll() {
-        List<Worker> workers = (List<Worker>) workerRepository.findAll();
-        if (workers.isEmpty()) {
+    public List<WorkerEntity> getAll() {
+        List<WorkerEntity> workerEntities = (List<WorkerEntity>) workerRepository.findAll();
+        if (workerEntities.isEmpty()) {
             throw new ServiceException("List is empty");
         }
-        return workers;
+        return workerEntities;
     }
 }

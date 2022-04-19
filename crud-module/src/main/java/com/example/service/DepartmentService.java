@@ -1,6 +1,6 @@
 package com.example.service;
 
-import com.example.model.Department;
+import com.example.model.DepartmentEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,12 +8,12 @@ import java.util.List;
 @Service
 public interface DepartmentService {
 
-    Department getById(Long id);
+    DepartmentEntity getById(Long id);
 
-    Department add(Department department);
+    DepartmentEntity add(DepartmentEntity departmentEntity);
 
     void deleteByID(Long id);
 
-    List<Department> getAll();
+    List<DepartmentEntity> getAll();
 
 }

@@ -1,16 +1,8 @@
 package com.example;
 
-import com.example.model.Department;
-import com.example.model.WorkedHours;
-import com.example.model.Worker;
-import com.example.repository.DepartmentRepository;
-import com.example.repository.WorkedHoursRepository;
-import com.example.repository.WorkerRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-
-import java.time.LocalDateTime;
 
 @SpringBootApplication
 public class CrudModuleRunner {
@@ -25,14 +17,14 @@ public class CrudModuleRunner {
 //                .build();
 //        departmentRepository.save(department);
 //
-//        Worker worker1 = Worker.builder()
+//        WorkerEntity worker1 = WorkerEntity.builder()
 //                .firstName("aLEX")
 //                .lastName("Valex")
 //                .department(department)
 //                .build();
 //        workerRepository.save(worker1);
 //
-//        Worker worker2 = Worker.builder()
+//        WorkerEntity worker2 = WorkerEntity.builder()
 //                .firstName("Riahanna")
 //                .lastName("Pina")
 //                .department(department)
@@ -41,12 +33,12 @@ public class CrudModuleRunner {
 //
 //        LocalDateTime startDate = LocalDateTime.of(2022, 4, 12, 10, 21, 55);
 //        LocalDateTime endDate = LocalDateTime.of(2022, 4, 12, 18, 54, 2);
-//        WorkedHours workedHours = WorkedHours.builder()
+//        WorkedHoursEntity workedHourEntities = WorkedHoursEntity.builder()
 //                .startDate(startDate)
 //                .endDate(endDate)
-//                .worker(worker1)
+//                .workerEntity(worker1)
 //                .build();
-//        workedHoursRepository.save(workedHours);
+//        workedHoursRepository.save(workedHourEntities);
 
     }
 }

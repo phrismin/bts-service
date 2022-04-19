@@ -1,7 +1,6 @@
 package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +15,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "departments")
-public class Department {
+public class DepartmentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +24,9 @@ public class Department {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL,
-            mappedBy = "department")
-    @JsonBackReference
-    private List<Worker> worker;
-
+//    @OneToMany(fetch = FetchType.LAZY,
+//            cascade = CascadeType.ALL,
+//            mappedBy = "department")
+//    @JsonBackReference
+//    private List<WorkerEntity> workerEntity;
 }
